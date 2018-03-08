@@ -342,40 +342,40 @@ public class FxGsonTest {
     @Theory
     public void testNullPropertiesFail_boolean(@FromDataPoints("strictProperties") Gson gson) {
         thrown.expect(NullPropertyException.class);
-        testSerialize(WithBooleanProp.class, "{\"prop\":null}", (BooleanProperty) null, (o, v) -> o.prop = v, gson);
+        testSerialize(WithBooleanProp.class, "{}", (BooleanProperty) null, (o, v) -> o.prop = v, gson);
     }
 
     @Theory
     public void testNullPropertiesFail_int(@FromDataPoints("strictProperties") Gson gson) {
         thrown.expect(NullPropertyException.class);
-        testSerialize(WithIntegerProp.class, "{\"prop\":null}", (IntegerProperty) null, (o, v) -> o.prop = v, gson);
+        testSerialize(WithIntegerProp.class, "{}", (IntegerProperty) null, (o, v) -> o.prop = v, gson);
     }
 
     @Theory
     public void testNullPropertiesFail_long(@FromDataPoints("strictProperties") Gson gson) {
         thrown.expect(NullPropertyException.class);
-        testSerialize(WithLongProp.class, "{\"prop\":null}", (LongProperty) null, (o, v) -> o.prop = v, gson);
+        testSerialize(WithLongProp.class, "{}", (LongProperty) null, (o, v) -> o.prop = v, gson);
     }
 
     @Theory
     public void testNullPropertiesFail_float(@FromDataPoints("strictProperties") Gson gson) {
         thrown.expect(NullPropertyException.class);
-        testSerialize(WithFloatProp.class, "{\"prop\":null}", (FloatProperty) null, (o, v) -> o.prop = v, gson);
+        testSerialize(WithFloatProp.class, "{}", (FloatProperty) null, (o, v) -> o.prop = v, gson);
     }
 
     @Theory
     public void testNullPropertiesFail_double(@FromDataPoints("strictProperties") Gson gson) {
         thrown.expect(NullPropertyException.class);
-        testSerialize(WithDoubleProp.class, "{\"prop\":null}", (DoubleProperty) null, (o, v) -> o.prop = v, gson);
+        testSerialize(WithDoubleProp.class, "{}", (DoubleProperty) null, (o, v) -> o.prop = v, gson);
     }
 
     @Theory
     public void testNullPropertiesAccepted(@FromDataPoints("safeProperties") Gson gson) {
-        testSerialize(WithBooleanProp.class, "{\"prop\":null}", (BooleanProperty) null, (o, v) -> o.prop = v, gson);
-        testSerialize(WithIntegerProp.class, "{\"prop\":null}", (IntegerProperty) null, (o, v) -> o.prop = v, gson);
-        testSerialize(WithLongProp.class, "{\"prop\":null}", (LongProperty) null, (o, v) -> o.prop = v, gson);
-        testSerialize(WithFloatProp.class, "{\"prop\":null}", (FloatProperty) null, (o, v) -> o.prop = v, gson);
-        testSerialize(WithDoubleProp.class, "{\"prop\":null}", (DoubleProperty) null, (o, v) -> o.prop = v, gson);
+        testSerialize(WithBooleanProp.class, "{}", (BooleanProperty) null, (o, v) -> o.prop = v, gson);
+        testSerialize(WithIntegerProp.class, "{}", (IntegerProperty) null, (o, v) -> o.prop = v, gson);
+        testSerialize(WithLongProp.class, "{}", (LongProperty) null, (o, v) -> o.prop = v, gson);
+        testSerialize(WithFloatProp.class, "{}", (FloatProperty) null, (o, v) -> o.prop = v, gson);
+        testSerialize(WithDoubleProp.class, "{}", (DoubleProperty) null, (o, v) -> o.prop = v, gson);
     }
 
     @Theory
@@ -424,21 +424,21 @@ public class FxGsonTest {
     public void testStringProperty(@FromDataPoints("all") Gson gson) {
         testProperty(WithStringProp.class, "myValue", "{\"prop\":\"myValue\"}", o -> o.prop, gson);
         testProperty(WithStringProp.class, "", "{\"prop\":\"\"}", o -> o.prop, gson);
-        testProperty(WithStringProp.class, null, "{\"prop\":null}", o -> o.prop, gson);
+        testProperty(WithStringProp.class, null, "{}", o -> o.prop, gson);
     }
 
     @Theory
     public void testObjectProperty(@FromDataPoints("all") Gson gson) {
         CustomObject obj = new CustomObject("myValue");
         testProperty(WithObjectProp.class, obj, "{\"prop\":{\"name\":\"myValue\"}}", o -> o.prop, gson);
-        testProperty(WithObjectProp.class, null, "{\"prop\":null}", o -> o.prop, gson);
+        testProperty(WithObjectProp.class, null, "{}", o -> o.prop, gson);
     }
 
     @Theory
     public void testGenericProperty(@FromDataPoints("all") Gson gson) {
         CustomObject obj = new CustomObject("myValue");
         testProperty(WithGenericProp.class, obj, "{\"prop\":{\"name\":\"myValue\"}}", o -> o.prop, gson);
-        testProperty(WithGenericProp.class, null, "{\"prop\":null}", o -> o.prop, gson);
+        testProperty(WithGenericProp.class, null, "{}", o -> o.prop, gson);
     }
 
     @Theory
@@ -450,7 +450,7 @@ public class FxGsonTest {
         ObservableList<CustomObject> listOne = FXCollections.observableArrayList(one);
         ObservableList<CustomObject> listTwo = FXCollections.observableArrayList(one, two);
 
-        testProperty(WithListProp.class, null, "{\"prop\":null}", o -> o.prop, gson);
+        testProperty(WithListProp.class, null, "{}", o -> o.prop, gson);
         testProperty(WithListProp.class, listEmpty, "{\"prop\":[]}", o -> o.prop, gson);
         testProperty(WithListProp.class, listOne, "{\"prop\":[{\"name\":\"myObj1\"}]}", o -> o.prop, gson);
         testProperty(WithListProp.class, listTwo, "{\"prop\":[{\"name\":\"myObj1\"},{\"name\":\"myObj2\"}]}",
@@ -469,7 +469,7 @@ public class FxGsonTest {
         Function<WithObsList, ObservableList<CustomObject>> getter = o -> o.list;
         BiConsumer<WithObsList, ObservableList<CustomObject>> setter = (o, l) -> o.list = l;
 
-        testValue(WithObsList.class, null, "{\"list\":null}", getter, setter, gson);
+        testValue(WithObsList.class, null, "{}", getter, setter, gson);
         testValue(WithObsList.class, listEmpty, "{\"list\":[]}", getter, setter, gson);
         testValue(WithObsList.class, listOne, "{\"list\":[{\"name\":\"myObj1\"}]}", getter, setter, gson);
         testValue(WithObsList.class, listTwo, "{\"list\":[{\"name\":\"myObj1\"},{\"name\":\"myObj2\"}]}", getter,
@@ -485,7 +485,7 @@ public class FxGsonTest {
         ObservableSet<CustomObject> setOne = FXCollections.observableSet(one);
         ObservableSet<CustomObject> setTwo = FXCollections.observableSet(one, two);
 
-        testProperty(WithSetProp.class, null, "{\"prop\":null}", o -> o.prop, gson);
+        testProperty(WithSetProp.class, null, "{}", o -> o.prop, gson);
         testProperty(WithSetProp.class, setEmpty, "{\"prop\":[]}", o -> o.prop, gson);
         testProperty(WithSetProp.class, setOne, "{\"prop\":[{\"name\":\"myObj1\"}]}", o -> o.prop, gson);
         // do not check a particular JSON because the order is non-deterministic
@@ -504,7 +504,7 @@ public class FxGsonTest {
         Function<WithObsSet, ObservableSet<CustomObject>> getter = o -> o.set;
         BiConsumer<WithObsSet, ObservableSet<CustomObject>> setter = (o, s) -> o.set = s;
 
-        testValue(WithObsSet.class, null, "{\"set\":null}", getter, setter, gson);
+        testValue(WithObsSet.class, null, "{}", getter, setter, gson);
         testValue(WithObsSet.class, setEmpty, "{\"set\":[]}", getter, setter, gson);
         testValue(WithObsSet.class, setOne, "{\"set\":[{\"name\":\"myObj1\"}]}", getter, setter, gson);
         // do not check a particular JSON because the order is non-deterministic
@@ -523,7 +523,7 @@ public class FxGsonTest {
         mapTwo.put("key1", one);
         mapTwo.put("key2", two);
 
-        testProperty(WithMapStrProp.class, null, "{\"prop\":null}", o -> o.prop, gson);
+        testProperty(WithMapStrProp.class, null, "{}", o -> o.prop, gson);
         testProperty(WithMapStrProp.class, mapEmpty, "{\"prop\":{}}", o -> o.prop, gson);
         testProperty(WithMapStrProp.class, mapOne, "{\"prop\":{\"key1\":{\"name\":\"myObj1\"}}}", o -> o.prop, gson);
         testProperty(WithMapStrProp.class, mapTwo,
@@ -545,7 +545,7 @@ public class FxGsonTest {
         Function<WithObsMapStr, ObservableMap<String, CustomObject>> getter = o -> o.map;
         BiConsumer<WithObsMapStr, ObservableMap<String, CustomObject>> setter = (o, m) -> o.map = m;
 
-        testValue(WithObsMapStr.class, null, "{\"map\":null}", getter, setter, gson);
+        testValue(WithObsMapStr.class, null, "{}", getter, setter, gson);
         testValue(WithObsMapStr.class, mapEmpty, "{\"map\":{}}", getter, setter, gson);
         testValue(WithObsMapStr.class, mapOne, "{\"map\":{\"key1\":{\"name\":\"myObj1\"}}}", getter, setter, gson);
         testValue(WithObsMapStr.class, mapTwo,
@@ -564,7 +564,7 @@ public class FxGsonTest {
         mapTwo.put(1, one);
         mapTwo.put(2, two);
 
-        testProperty(WithMapIntProp.class, null, "{\"prop\":null}", o -> o.prop, gson);
+        testProperty(WithMapIntProp.class, null, "{}", o -> o.prop, gson);
         testProperty(WithMapIntProp.class, mapEmpty, "{\"prop\":{}}", o -> o.prop, gson);
         testProperty(WithMapIntProp.class, mapOne, "{\"prop\":{\"1\":{\"name\":\"myObj1\"}}}", o -> o.prop, gson);
         testProperty(WithMapIntProp.class, mapTwo,
@@ -586,7 +586,7 @@ public class FxGsonTest {
         Function<WithObsMapInt, ObservableMap<Integer, CustomObject>> getter = o -> o.map;
         BiConsumer<WithObsMapInt, ObservableMap<Integer, CustomObject>> setter = (o, m) -> o.map = m;
 
-        testValue(WithObsMapInt.class, null, "{\"map\":null}", getter, setter, gson);
+        testValue(WithObsMapInt.class, null, "{}", getter, setter, gson);
         testValue(WithObsMapInt.class, mapEmpty, "{\"map\":{}}", getter, setter, gson);
         testValue(WithObsMapInt.class, mapOne, "{\"map\":{\"1\":{\"name\":\"myObj1\"}}}", getter, setter, gson);
         testValue(WithObsMapInt.class, mapTwo, "{\"map\":{\"1\":{\"name\":\"myObj1\"},\"2\":{\"name\":\"myObj2\"}}}",
@@ -609,7 +609,7 @@ public class FxGsonTest {
         ObservableMap<String, CustomObject> mapOneObs = FXCollections.observableMap(mapOne);
         ObservableMap<String, CustomObject> mapTwoObs = FXCollections.observableMap(mapTwo);
 
-        testProperty(WithMapStrProp.class, null, "{\"prop\":null}", o -> o.prop, gson);
+        testProperty(WithMapStrProp.class, null, "{}", o -> o.prop, gson);
         testProperty(WithMapStrProp.class, mapEmptyObs, "{\"prop\":{}}", o -> o.prop, gson);
         testProperty(WithMapStrProp.class, mapOneObs, "{\"prop\":{\"key1\":{\"name\":\"myObj1\"}}}", o -> o.prop, gson);
         testProperty(WithMapStrProp.class, mapTwoObs,
@@ -635,7 +635,7 @@ public class FxGsonTest {
         Function<WithObsMapStr, ObservableMap<String, CustomObject>> getter = o -> o.map;
         BiConsumer<WithObsMapStr, ObservableMap<String, CustomObject>> setter = (o, m) -> o.map = m;
 
-        testValue(WithObsMapStr.class, null, "{\"map\":null}", getter, setter, gson);
+        testValue(WithObsMapStr.class, null, "{}", getter, setter, gson);
         testValue(WithObsMapStr.class, mapEmptyObs, "{\"map\":{}}", getter, setter, gson);
         testValue(WithObsMapStr.class, mapOneObs, "{\"map\":{\"key1\":{\"name\":\"myObj1\"}}}", getter, setter, gson);
         testValue(WithObsMapStr.class, mapTwoObs,
@@ -658,7 +658,7 @@ public class FxGsonTest {
         ObservableMap<Integer, CustomObject> mapOneObs = FXCollections.observableMap(mapOne);
         ObservableMap<Integer, CustomObject> mapTwoObs = FXCollections.observableMap(mapTwo);
 
-        testProperty(WithMapIntProp.class, null, "{\"prop\":null}", o -> o.prop, gson);
+        testProperty(WithMapIntProp.class, null, "{}", o -> o.prop, gson);
         testProperty(WithMapIntProp.class, mapEmptyObs, "{\"prop\":{}}", o -> o.prop, gson);
         testProperty(WithMapIntProp.class, mapOneObs, "{\"prop\":{\"1\":{\"name\":\"myObj1\"}}}", o -> o.prop, gson);
         testProperty(WithMapIntProp.class, mapTwoObs,
@@ -684,7 +684,7 @@ public class FxGsonTest {
         Function<WithObsMapInt, ObservableMap<Integer, CustomObject>> getter = o -> o.map;
         BiConsumer<WithObsMapInt, ObservableMap<Integer, CustomObject>> setter = (o, m) -> o.map = m;
 
-        testValue(WithObsMapInt.class, null, "{\"map\":null}", getter, setter, gson);
+        testValue(WithObsMapInt.class, null, "{}", getter, setter, gson);
         testValue(WithObsMapInt.class, mapEmptyObs, "{\"map\":{}}", getter, setter, gson);
         testValue(WithObsMapInt.class, mapOneObs, "{\"map\":{\"1\":{\"name\":\"myObj1\"}}}", getter, setter, gson);
         testValue(WithObsMapInt.class, mapTwoObs, "{\"map\":{\"1\":{\"name\":\"myObj1\"},\"2\":{\"name\":\"myObj2\"}}}",
@@ -729,7 +729,7 @@ public class FxGsonTest {
     public void testString(@FromDataPoints("all") Gson gson) {
         testValue(WithString.class, "myValue", "{\"value\":\"myValue\"}", o -> o.value, (o, v) -> o.value = v, gson);
         testValue(WithString.class, "", "{\"value\":\"\"}", o -> o.value, (o, v) -> o.value = v, gson);
-        testValue(WithString.class, null, "{\"value\":null}", o -> o.value, (o, v) -> o.value = v, gson);
+        testValue(WithString.class, null, "{}", o -> o.value, (o, v) -> o.value = v, gson);
     }
 
     @Theory
@@ -737,7 +737,7 @@ public class FxGsonTest {
         CustomObject obj = new CustomObject("myValue");
         testValue(WithCustomObject.class, obj, "{\"value\":{\"name\":\"myValue\"}}", o -> o.value,
                 (o, v) -> o.value = v, gson);
-        testValue(WithCustomObject.class, null, "{\"value\":null}", o -> o.value, (o, v) -> o.value = v, gson);
+        testValue(WithCustomObject.class, null, "{}", o -> o.value, (o, v) -> o.value = v, gson);
     }
 
     @Theory
@@ -752,7 +752,7 @@ public class FxGsonTest {
         Function<WithList, List<CustomObject>> getter = o -> o.list;
         BiConsumer<WithList, List<CustomObject>> setter = (o, l) -> o.list = l;
 
-        testValue(WithList.class, null, "{\"list\":null}", getter, setter, gson);
+        testValue(WithList.class, null, "{}", getter, setter, gson);
         testValue(WithList.class, listEmpty, "{\"list\":[]}", getter, setter, gson);
         testValue(WithList.class, listOne, "{\"list\":[{\"name\":\"myObj1\"}]}", getter, setter, gson);
         testValue(WithList.class, listTwo, "{\"list\":[{\"name\":\"myObj1\"},{\"name\":\"myObj2\"}]}", getter, setter,
@@ -771,7 +771,7 @@ public class FxGsonTest {
         Function<WithSet, Set<CustomObject>> getter = o -> o.set;
         BiConsumer<WithSet, Set<CustomObject>> setter = (o, s) -> o.set = s;
 
-        testValue(WithSet.class, null, "{\"set\":null}", getter, setter, gson);
+        testValue(WithSet.class, null, "{}", getter, setter, gson);
         testValue(WithSet.class, setEmpty, "{\"set\":[]}", getter, setter, gson);
         testValue(WithSet.class, setOne, "{\"set\":[{\"name\":\"myObj1\"}]}", getter, setter, gson);
         // do not check a particular JSON because the order is non-deterministic
@@ -792,7 +792,7 @@ public class FxGsonTest {
         Function<WithMapStr, Map<String, CustomObject>> getter = o -> o.map;
         BiConsumer<WithMapStr, Map<String, CustomObject>> setter = (o, m) -> o.map = m;
 
-        testValue(WithMapStr.class, null, "{\"map\":null}", getter, setter, gson);
+        testValue(WithMapStr.class, null, "{}", getter, setter, gson);
         testValue(WithMapStr.class, mapEmpty, "{\"map\":{}}", getter, setter, gson);
         testValue(WithMapStr.class, mapOne, "{\"map\":{\"key1\":{\"name\":\"myObj1\"}}}", getter, setter, gson);
         testValue(WithMapStr.class, mapTwo, "{\"map\":{\"key1\":{\"name\":\"myObj1\"},\"key2\":{\"name\":\"myObj2\"}}}",
@@ -813,7 +813,7 @@ public class FxGsonTest {
         Function<WithMapInt, Map<Integer, CustomObject>> getter = o -> o.map;
         BiConsumer<WithMapInt, Map<Integer, CustomObject>> setter = (o, m) -> o.map = m;
 
-        testValue(WithMapInt.class, null, "{\"map\":null}", getter, setter, gson);
+        testValue(WithMapInt.class, null, "{}", getter, setter, gson);
         testValue(WithMapInt.class, mapEmpty, "{\"map\":{}}", getter, setter, gson);
         testValue(WithMapInt.class, mapOne, "{\"map\":{\"1\":{\"name\":\"myObj1\"}}}", getter, setter, gson);
         testValue(WithMapInt.class, mapTwo, "{\"map\":{\"1\":{\"name\":\"myObj1\"},\"2\":{\"name\":\"myObj2\"}}}",
@@ -830,7 +830,7 @@ public class FxGsonTest {
         Function<WithFont, Font> getter = o -> o.font;
         BiConsumer<WithFont, Font> setter = (o, f) -> o.font = f;
 
-        testValue(WithFont.class, null, "{\"font\":null}", getter, setter, gson);
+        testValue(WithFont.class, null, "{}", getter, setter, gson);
         testValue(WithFont.class, font, "{\"font\":\"SansSerif,Regular,11.0\"}", getter, setter, gson);
     }
 
@@ -841,7 +841,7 @@ public class FxGsonTest {
         double size = 11.0;
         Font font = Font.font(family, weight, size);
 
-        testProperty(WithFontProp.class, null, "{\"prop\":null}", o -> o.prop, gson);
+        testProperty(WithFontProp.class, null, "{}", o -> o.prop, gson);
         testProperty(WithFontProp.class, font, "{\"prop\":\"SansSerif,Regular,11.0\"}", o -> o.prop, gson);
     }
 
@@ -850,14 +850,14 @@ public class FxGsonTest {
         Function<WithColor, Color> getter = o -> o.color;
         BiConsumer<WithColor, Color> setter = (o, c) -> o.color = c;
 
-        testValue(WithColor.class, null, "{\"color\":null}", getter, setter, gson);
+        testValue(WithColor.class, null, "{}", getter, setter, gson);
         testValue(WithColor.class, Color.RED, "{\"color\":\"#ff0000ff\"}", getter, setter, gson);
         testValue(WithColor.class, Color.BLUE, "{\"color\":\"#0000ffff\"}", getter, setter, gson);
     }
 
     @Theory
     public void testColorProperty(@FromDataPoints("extra") Gson gson) {
-        testProperty(WithColorProp.class, null, "{\"prop\":null}", o -> o.prop, gson);
+        testProperty(WithColorProp.class, null, "{}", o -> o.prop, gson);
         testProperty(WithColorProp.class, Color.RED, "{\"prop\":\"#ff0000ff\"}", o -> o.prop, gson);
         testProperty(WithColorProp.class, Color.BLUE, "{\"prop\":\"#0000ffff\"}", o -> o.prop, gson);
     }
