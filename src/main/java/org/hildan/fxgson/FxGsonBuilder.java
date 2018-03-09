@@ -56,8 +56,7 @@ public class FxGsonBuilder {
      */
     public GsonBuilder builder() {
         // serialization of nulls is necessary to have properties with null values deserialized properly
-        builder.serializeNulls()
-               .registerTypeAdapter(ObservableList.class, new ObservableListCreator())
+        builder.registerTypeAdapter(ObservableList.class, new ObservableListCreator())
                .registerTypeAdapter(ObservableSet.class, new ObservableSetCreator())
                .registerTypeAdapter(ObservableMap.class, new ObservableMapCreator())
                .registerTypeAdapterFactory(new JavaFxPropertyTypeAdapterFactory(strictProperties, strictPrimitives));

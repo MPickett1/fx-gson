@@ -185,12 +185,20 @@ public class FxGsonSimpleTest {
         // the value should be serialized like vanilla Gson would
         assertEquals(vJson, gson.toJson(value));
         // same rule apply when the value is contained in an object
-        assertEquals(String.format("{\"value\":%s}", vJson), gson.toJson(wrapper));
+        if (vJson.equals("null")) {
+            assertEquals("{}", gson.toJson(wrapper));
+        } else {
+            assertEquals(String.format("{\"value\":%s}", vJson), gson.toJson(wrapper));
+        }
 
         // a property containing the value should be serialized as Gson would serialize the value itself
         assertEquals(vJson, gson.toJson(propValue));
         // same rule apply when the property is contained in an object
-        assertEquals(String.format("{\"prop\":%s}", vJson), gson.toJson(propWrapper));
+        if (vJson.equals("null")) {
+            assertEquals("{}", gson.toJson(propWrapper));
+        } else {
+            assertEquals(String.format("{\"prop\":%s}", vJson), gson.toJson(propWrapper));
+        }
     }
 
     private static <T> void testDeserialization(Gson gson, T value, Property<?> propValue, Object wrapper,
@@ -264,49 +272,49 @@ public class FxGsonSimpleTest {
     public void testNullPropertiesAccepted_boolean(@FromDataPoints("safeProperties") Gson gson) {
         WithBooleanProp propContainer = new WithBooleanProp();
         propContainer.prop = null;
-        assertEquals("{\"prop\":null}", gson.toJson(propContainer));
+        assertEquals("{}", gson.toJson(propContainer));
     }
 
     @Theory
     public void testNullPropertiesAccepted_int(@FromDataPoints("safeProperties") Gson gson) {
         WithIntegerProp propContainer = new WithIntegerProp();
         propContainer.prop = null;
-        assertEquals("{\"prop\":null}", gson.toJson(propContainer));
+        assertEquals("{}", gson.toJson(propContainer));
     }
 
     @Theory
     public void testNullPropertiesAccepted_long(@FromDataPoints("safeProperties") Gson gson) {
         WithLongProp propContainer = new WithLongProp();
         propContainer.prop = null;
-        assertEquals("{\"prop\":null}", gson.toJson(propContainer));
+        assertEquals("{}", gson.toJson(propContainer));
     }
 
     @Theory
     public void testNullPropertiesAccepted_float(@FromDataPoints("safeProperties") Gson gson) {
         WithFloatProp propContainer = new WithFloatProp();
         propContainer.prop = null;
-        assertEquals("{\"prop\":null}", gson.toJson(propContainer));
+        assertEquals("{}", gson.toJson(propContainer));
     }
 
     @Theory
     public void testNullPropertiesAccepted_double(@FromDataPoints("safeProperties") Gson gson) {
         WithDoubleProp propContainer = new WithDoubleProp();
         propContainer.prop = null;
-        assertEquals("{\"prop\":null}", gson.toJson(propContainer));
+        assertEquals("{}", gson.toJson(propContainer));
     }
 
     @Theory
     public void testNullPropertiesAccepted_string(@FromDataPoints("safeProperties") Gson gson) {
         WithStringProp propContainer = new WithStringProp();
         propContainer.prop = null;
-        assertEquals("{\"prop\":null}", gson.toJson(propContainer));
+        assertEquals("{}", gson.toJson(propContainer));
     }
 
     @Theory
     public void testNullPropertiesAccepted_object(@FromDataPoints("safeProperties") Gson gson) {
         WithObjectProp propContainer = new WithObjectProp();
         propContainer.prop = null;
-        assertEquals("{\"prop\":null}", gson.toJson(propContainer));
+        assertEquals("{}", gson.toJson(propContainer));
     }
 
     @Theory
