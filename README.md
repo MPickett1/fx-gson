@@ -5,7 +5,7 @@
 [![Build Status](https://travis-ci.org/joffrey-bion/fx-gson.svg?branch=master)](https://travis-ci.org/joffrey-bion/fx-gson)
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/joffrey-bion/fx-gson/blob/master/LICENSE)
 
-This fork removes the `serializeNulls()` option that comes enabled on FxGson. I had to do this to be compatible with java-cloudant and CouchDB, since CouchDB expects some fields to be omitted when working with documents, namely the `_rev`and `_attachments` if they are not populated. 
+This fork removes the `serializeNulls()` option that comes enabled on FxGson. I had to do this to be compatible with java-cloudant and CouchDB, since CouchDB expects some fields to be omitted when working with documents, namely the `_rev`and `_attachments` if they are not populated. I suggest cloning and building this via gradle to get a usable jar, if you want the `serializeNulls()` option off. Otherwise include it via Maven or Gradle.
 
 FX Gson is a set of type adapters for [Google Gson](https://github.com/google/gson) to serialize JavaFX properties as 
 their values, and deserialize values into properties.
